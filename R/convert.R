@@ -8,23 +8,11 @@
 #'
 #' @examples
 #' \dontrun{
-#' set_html2pdf_backend("C:/path/to/converter_backend.exe")
 #' convert_html_to_pdf("C:/path/to/file.xhtml")
 #' }
 convert_html_to_pdf <- function(input, verbose = FALSE) {
   input <- normalizePath(input, winslash = "/", mustWork = TRUE)
-  exe <- find_html2pdf_backend()
-  
-  if (!nzchar(exe) || !file.exists(exe)) {
-    stop(
-      paste(
-        "Backend not configured.",
-        "Run install_html2pdf_backend(<download-url>)",
-        "or set_html2pdf_backend(<path-to-exe>)."
-      ),
-      call. = FALSE
-    )
-  }
+  exe <- ensure_html2pdf_backend(ask = interactive(), verbose = verbose)
   
   if (verbose) {
     message("Starting conversion.")

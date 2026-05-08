@@ -19,7 +19,6 @@ Convert local 'HTML' or 'XHTML' file to 'PDF'
 }
 \examples{
 \dontrun{
-set_html2pdf_backend("C:/path/to/converter_backend.exe")
 convert_html_to_pdf("C:/path/to/file.xhtml")
 }
 }

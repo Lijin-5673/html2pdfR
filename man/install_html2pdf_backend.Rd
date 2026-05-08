@@ -2,10 +2,10 @@
 % Please edit documentation in R/install.R
 \name{install_html2pdf_backend}
 \alias{install_html2pdf_backend}
-\title{Install external backend}
+\title{Install external backend from GitHub Releases}
 \usage{
 install_html2pdf_backend(
-  url,
+  url = backend_release_url(),
   ask = interactive(),
   overwrite = FALSE,
   timeout = 300,
@@ -13,7 +13,8 @@ install_html2pdf_backend(
 )
 }
 \arguments{
-\item{url}{HTTPS URL to a zip file containing the backend executable.}
+\item{url}{Optional URL to a backend zip file. If omitted, the default
+GitHub Releases URL is used.}
 
 \item{ask}{Logical; ask before downloading. Defaults to interactive().}
 
@@ -27,5 +28,5 @@ install_html2pdf_backend(
 Invisibly returns the installed executable path.
 }
 \description{
-Install external backend
+Install external backend from GitHub Releases
 }

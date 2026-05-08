@@ -30,23 +30,11 @@ test_that("convert_html_to_pdf errors when backend is not configured", {
   html_file <- tempfile(fileext = ".html")
   writeLines("<html><body><h1>Test</h1></body></html>", html_file)
   
-  old_cfg <- backend_config_file()
-  had_cfg <- file.exists(old_cfg)
-  tmp_backup <- tempfile(fileext = ".txt")
-  
-  if (had_cfg) {
-    file.copy(old_cfg, tmp_backup, overwrite = TRUE)
-    unlink(old_cfg)
-  }
-  
-  on.exit({
-    if (file.exists(old_cfg)) {
-      unlink(old_cfg)
+  testthat::local_mocked_bindings(
+    ensure_html2pdf_backend = function(ask = interactive(), verbose = FALSE) {
+      stop("Backend not configured", call. = FALSE)
     }
-    if (had_cfg && file.exists(tmp_backup)) {
-      file.copy(tmp_backup, old_cfg, overwrite = TRUE)
-    }
-  }, add = TRUE)
+  )
   
   expect_error(
     convert_html_to_pdf(html_file),

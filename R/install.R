@@ -1,6 +1,7 @@
-#' Install external backend
+#' Install external backend from GitHub Releases
 #'
-#' @param url HTTPS URL to a zip file containing the backend executable.
+#' @param url Optional URL to a backend zip file. If omitted, the default
+#'   GitHub Releases URL is used.
 #' @param ask Logical; ask before downloading. Defaults to interactive().
 #' @param overwrite Logical; overwrite an existing backend installation.
 #' @param timeout Download timeout in seconds.
@@ -9,14 +10,14 @@
 #' @return Invisibly returns the installed executable path.
 #' @export
 install_html2pdf_backend <- function(
-    url,
+    url = backend_release_url(),
     ask = interactive(),
     overwrite = FALSE,
     timeout = 300,
     verbose = FALSE
 ) {
   if (!nzchar(url)) {
-    stop("A download URL is required.", call. = FALSE)
+    stop("A backend download URL is required.", call. = FALSE)
   }
   
   target_dir <- backend_root()
@@ -31,18 +32,29 @@ install_html2pdf_backend <- function(
       full.names = TRUE
     )
     if (length(exe) > 0) {
-      set_html2pdf_backend(exe[1])
-      return(invisible(exe[1]))
+      exe <- normalizePath(exe[1], winslash = "/", mustWork = TRUE)
+      set_html2pdf_backend(exe)
+      return(invisible(exe))
     }
   }
   
   if (ask) {
-    ans <- utils::menu(
-      c("Yes", "No"),
-      title = "Download external HTML-to-PDF backend?"
-    )
-    if (ans != 1) {
-      stop("Installation cancelled by user.", call. = FALSE)
+    if (interactive() && capabilities("tcltk")) {
+      ans <- tcltk::tkmessageBox(
+        title = "Download Backend",
+        message = "Download the external HTML-to-PDF backend now?",
+        icon = "question",
+        type = "yesno",
+        default = "yes"
+      )
+      if (as.character(ans) != "yes") {
+        stop("Installation cancelled by user.", call. = FALSE)
+      }
+    } else {
+      ans <- utils::menu(c("Yes", "No"), title = "Download backend now?")
+      if (ans != 1) {
+        stop("Installation cancelled by user.", call. = FALSE)
+      }
     }
   }
   
@@ -53,7 +65,7 @@ install_html2pdf_backend <- function(
   options(timeout = max(timeout, old_timeout))
   
   if (verbose) {
-    message("Downloading backend archive.")
+    message("Downloading backend archive from GitHub Releases.")
   }
   
   utils::download.file(url, destfile = zip_file, mode = "wb", quiet = !verbose)

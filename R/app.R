@@ -3,13 +3,10 @@
 #' @return Opens a 'Tk' graphical interface for file selection and conversion.
 #' @export
 launch_html2pdf_app <- function() {
-  backend_exe <- find_html2pdf_backend()
+  backend_exe <- ensure_html2pdf_backend(ask = TRUE, verbose = TRUE)
   
   if (!nzchar(backend_exe) || !file.exists(backend_exe)) {
-    stop(
-      "Backend not configured. Run install_html2pdf_backend(<download-url>) first.",
-      call. = FALSE
-    )
+    stop("Backend installation failed.", call. = FALSE)
   }
   
   selected_file <- NULL
