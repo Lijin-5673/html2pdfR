@@ -7,7 +7,7 @@
 set_html2pdf_backend(path)
 }
 \arguments{
-\item{path}{Path to converter_backend.exe.}
+\item{path}{Path to the backend executable.}
 }
 \value{
 Invisibly returns the normalized backend path.

@@ -2,27 +2,30 @@
 % Please edit documentation in R/install.R
 \name{install_html2pdf_backend}
 \alias{install_html2pdf_backend}
-\title{Install external HTML-to-PDF backend}
+\title{Install external backend}
 \usage{
 install_html2pdf_backend(
   url,
   ask = interactive(),
   overwrite = FALSE,
-  timeout = 300
+  timeout = 300,
+  verbose = FALSE
 )
 }
 \arguments{
 \item{url}{HTTPS URL to a zip file containing the backend executable.}
 
-\item{ask}{Ask for confirmation before downloading. Defaults to interactive().}
+\item{ask}{Logical; ask before downloading. Defaults to interactive().}
 
-\item{overwrite}{Overwrite an existing backend installation.}
+\item{overwrite}{Logical; overwrite an existing backend installation.}
 
 \item{timeout}{Download timeout in seconds.}
+
+\item{verbose}{Logical; show progress messages.}
 }
 \value{
 Invisibly returns the installed executable path.
 }
 \description{
-Install external HTML-to-PDF backend
+Install external backend
 }

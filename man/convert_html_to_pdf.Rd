@@ -2,18 +2,20 @@
 % Please edit documentation in R/convert.R
 \name{convert_html_to_pdf}
 \alias{convert_html_to_pdf}
-\title{Convert HTML/XHTML file to PDF}
+\title{Convert local 'HTML' or 'XHTML' file to 'PDF'}
 \usage{
-convert_html_to_pdf(input)
+convert_html_to_pdf(input, verbose = FALSE)
 }
 \arguments{
 \item{input}{Path to a local HTML, HTM, or XHTML file.}
+
+\item{verbose}{Logical; show progress messages.}
 }
 \value{
 Invisibly returns the expected output PDF path.
 }
 \description{
-Convert HTML/XHTML file to PDF
+Convert local 'HTML' or 'XHTML' file to 'PDF'
 }
 \examples{
 \dontrun{

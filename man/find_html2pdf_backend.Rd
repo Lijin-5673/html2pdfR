@@ -7,7 +7,7 @@
 find_html2pdf_backend()
 }
 \value{
-Path to backend executable, or empty string if not found.
+Path to backend executable, or an empty string if not found.
 }
 \description{
 Find configured backend executable

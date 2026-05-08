@@ -1,6 +1,6 @@
-#' Launch GUI for HTML/XHTML to PDF conversion
+#' Launch graphical converter application
 #'
-#' @return Opens a Tk GUI for file selection and conversion.
+#' @return Opens a 'Tk' graphical interface for file selection and conversion.
 #' @export
 launch_html2pdf_app <- function() {
   backend_exe <- find_html2pdf_backend()
@@ -77,7 +77,7 @@ launch_html2pdf_app <- function() {
     if (is.null(selected_file) || !nzchar(selected_file)) {
       tcltk::tkmessageBox(
         title = "Error",
-        message = "Please choose an HTML/XHTML file first.",
+        message = "Please choose an HTML or XHTML file first.",
         icon = "error",
         type = "ok"
       )
@@ -96,7 +96,6 @@ launch_html2pdf_app <- function() {
     
     output <- tryCatch(
       {
-        set_status("Running converter")
         system2(
           command = backend_exe,
           args = shQuote(selected_file),
@@ -117,7 +116,6 @@ launch_html2pdf_app <- function() {
     if (length(output) > 0) {
       for (line in output) {
         write_log(line)
-        tcltk::tcl("update")
       }
     }
     

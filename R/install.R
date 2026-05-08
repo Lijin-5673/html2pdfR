@@ -1,9 +1,10 @@
-#' Install external HTML-to-PDF backend
+#' Install external backend
 #'
 #' @param url HTTPS URL to a zip file containing the backend executable.
-#' @param ask Ask for confirmation before downloading. Defaults to interactive().
-#' @param overwrite Overwrite an existing backend installation.
+#' @param ask Logical; ask before downloading. Defaults to interactive().
+#' @param overwrite Logical; overwrite an existing backend installation.
 #' @param timeout Download timeout in seconds.
+#' @param verbose Logical; show progress messages.
 #'
 #' @return Invisibly returns the installed executable path.
 #' @export
@@ -11,7 +12,8 @@ install_html2pdf_backend <- function(
     url,
     ask = interactive(),
     overwrite = FALSE,
-    timeout = 300
+    timeout = 300,
+    verbose = FALSE
 ) {
   if (!nzchar(url)) {
     stop("A download URL is required.", call. = FALSE)
@@ -50,12 +52,20 @@ install_html2pdf_backend <- function(
   on.exit(options(timeout = old_timeout), add = TRUE)
   options(timeout = max(timeout, old_timeout))
   
-  utils::download.file(url, destfile = zip_file, mode = "wb")
+  if (verbose) {
+    message("Downloading backend archive.")
+  }
+  
+  utils::download.file(url, destfile = zip_file, mode = "wb", quiet = !verbose)
   
   if (dir.exists(unpack_dir)) {
     unlink(unpack_dir, recursive = TRUE, force = TRUE)
   }
   dir.create(unpack_dir, recursive = TRUE, showWarnings = FALSE)
+  
+  if (verbose) {
+    message("Unpacking backend archive.")
+  }
   
   utils::unzip(zip_file, exdir = unpack_dir)
   
@@ -67,10 +77,15 @@ install_html2pdf_backend <- function(
   )
   
   if (!length(exe)) {
-    stop("Backend executable not found after download/unzip.", call. = FALSE)
+    stop("Backend executable not found after download and unzip.", call. = FALSE)
   }
   
   exe <- normalizePath(exe[1], winslash = "/", mustWork = TRUE)
   set_html2pdf_backend(exe)
+  
+  if (verbose) {
+    message("Backend installed successfully.")
+  }
+  
   invisible(exe)
 }

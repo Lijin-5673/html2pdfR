@@ -28,7 +28,7 @@ backend_default_exe <- function() {
 
 #' Find configured backend executable
 #'
-#' @return Path to backend executable, or empty string if not found.
+#' @return Path to backend executable, or an empty string if not found.
 #' @export
 find_html2pdf_backend <- function() {
   cfg <- backend_config_file()
@@ -50,7 +50,7 @@ find_html2pdf_backend <- function() {
 
 #' Set backend executable path
 #'
-#' @param path Path to converter_backend.exe.
+#' @param path Path to the backend executable.
 #'
 #' @return Invisibly returns the normalized backend path.
 #' @export

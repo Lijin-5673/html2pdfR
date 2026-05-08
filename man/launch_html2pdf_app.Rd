@@ -2,13 +2,13 @@
 % Please edit documentation in R/app.R
 \name{launch_html2pdf_app}
 \alias{launch_html2pdf_app}
-\title{Launch GUI for HTML/XHTML to PDF conversion}
+\title{Launch graphical converter application}
 \usage{
 launch_html2pdf_app()
 }
 \value{
-Opens a Tk GUI for file selection and conversion.
+Opens a 'Tk' graphical interface for file selection and conversion.
 }
 \description{
-Launch GUI for HTML/XHTML to PDF conversion
+Launch graphical converter application
 }
