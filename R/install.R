@@ -39,8 +39,8 @@ install_html2pdf_backend <- function(
   }
   
   if (ask) {
-    ans <- utils::menu(c("Yes", "No"), title = "Download backend now?")
-    if (ans != 1) {
+    ans <- tolower(trimws(readline("Download backend now? [y/n]: ")))
+    if (!identical(ans, "y")) {
       stop("Installation cancelled by user.", call. = FALSE)
     }
   }
