@@ -27,7 +27,7 @@ install_html2pdf_backend <- function(
   if (dir.exists(unpack_dir) && !overwrite) {
     exe <- list.files(
       unpack_dir,
-      pattern = "converter_backend\\.exe$",
+      pattern = "HtmlToPdfConverter\\.exe$",
       recursive = TRUE,
       full.names = TRUE
     )
@@ -83,7 +83,7 @@ install_html2pdf_backend <- function(
   
   exe <- list.files(
     unpack_dir,
-    pattern = "converter_backend\\.exe$",
+    pattern = "HtmlToPdfConverter\\.exe$",
     recursive = TRUE,
     full.names = TRUE
   )
