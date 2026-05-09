@@ -39,22 +39,9 @@ install_html2pdf_backend <- function(
   }
   
   if (ask) {
-    if (interactive() && capabilities("tcltk")) {
-      ans <- tcltk::tkmessageBox(
-        title = "Download Backend",
-        message = "Download the external HTML-to-PDF backend now?",
-        icon = "question",
-        type = "yesno",
-        default = "yes"
-      )
-      if (as.character(ans) != "yes") {
-        stop("Installation cancelled by user.", call. = FALSE)
-      }
-    } else {
-      ans <- utils::menu(c("Yes", "No"), title = "Download backend now?")
-      if (ans != 1) {
-        stop("Installation cancelled by user.", call. = FALSE)
-      }
+    ans <- utils::menu(c("Yes", "No"), title = "Download backend now?")
+    if (ans != 1) {
+      stop("Installation cancelled by user.", call. = FALSE)
     }
   }
   
