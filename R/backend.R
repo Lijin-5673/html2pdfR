@@ -2,7 +2,7 @@
 #'
 #' @return URL to the backend zip file hosted on GitHub Releases.
 backend_release_url <- function() {
-  "https://github.com/Lijin-5673/html2pdfR/releases/download/backend-v1/converter_backend.zip"
+  "https://github.com/Lijin-5673/html2pdfR/releases/tag/backend-v1/converter_backend.zip"
 }
 
 #' Ensure backend is available
